@@ -10,7 +10,10 @@ type ipv4 struct{
     Ip_address string `json:"ip_address,omitempty"`
     Netmask string `json:"netmask,omitempty"`
     Gateway string `json:"gateway,omitempty"`
-    Active bool `json:"active,omitempty"`
+}
+
+type floatipv4 struct {
+    Active bool `json:"active"`
 }
 
 type net_interface struct {
@@ -26,7 +29,7 @@ type interfaces struct {
 }
 
 type floating_ip struct {
-    Ipv4 ipv4 `json:"ipv4"`
+    Ipv4 floatipv4 `json:"ipv4"`
 }
 type Nameserver string
 
@@ -59,6 +62,8 @@ func main() {
     http.HandleFunc("/metadata/v1.json", func(w http.ResponseWriter, r *http.Request) {
         //fmt.Fprintf(w, "[{'droplet_id': 2756294,'hostname': 'sample-droplet','vendor_data': '#cloud-config','public_keys': [],'region': 'nyc3','interfaces': {'private': [],'public': []},'floating_ip': {},'dns': {},'features': {}}]" )
         fmt.Fprint(w,string(data))
+        //fmt.Fprint(w,myJsonString)
+        
     })
 
     log.Fatal(http.ListenAndServe(":8080", nil))
