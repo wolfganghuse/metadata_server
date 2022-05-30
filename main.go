@@ -51,10 +51,7 @@ type metadata struct {
 }
 func main() {
 
-    mydata := &metadata{
-		Hostname: "Pigeon",
-        Region: "fra",
-	}
+    mydata := &metadata{}
 
 	
     myJsonString := `{"hostname":"centos-s-1vcpu-1gb-fra1-01","region":"fra1","interfaces":{"private":[{"ipv4":{"ip_address":"10.114.0.2","netmask":"255.255.240.0","gateway":"10.114.0.1"},"mac":"ae:8a:a5:54:06:27","type":"private"}],"public":[{"ipv4":{"ip_address":"142.93.108.93","netmask":"255.255.240.0","gateway":"142.93.96.1"},"anchor_ipv4":{"ip_address":"10.19.0.5","netmask":"255.255.0.0","gateway":"10.19.0.1"},"mac":"ca:cd:a7:1a:4d:7e","type":"public"}]},"floating_ip":{"ipv4":{"active":false}},"dns":{"nameservers":["67.207.67.2","67.207.67.3"]}}`
@@ -66,10 +63,7 @@ func main() {
 	fmt.Println(string(data))
 
     http.HandleFunc("/metadata/v1.json", func(w http.ResponseWriter, r *http.Request) {
-        //fmt.Fprintf(w, "[{'droplet_id': 2756294,'hostname': 'sample-droplet','vendor_data': '#cloud-config','public_keys': [],'region': 'nyc3','interfaces': {'private': [],'public': []},'floating_ip': {},'dns': {},'features': {}}]" )
         fmt.Fprint(w,string(data))
-        //fmt.Fprint(w,myJsonString)
-        
     })
 
     log.Fatal(http.ListenAndServe(":8080", nil))
