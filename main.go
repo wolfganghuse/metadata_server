@@ -16,7 +16,13 @@ type floatipv4 struct {
     Active bool `json:"active"`
 }
 
-type net_interface struct {
+type private_interface struct {
+    Ipv4 ipv4 `json:"ipv4"`
+    Mac string `json:"mac"`
+    Interface_type string `json:"type"`
+}
+
+type public_interface struct {
     Ipv4 ipv4 `json:"ipv4"`
     Anchor_ipv4 ipv4 `json:"anchor_ipv4,omitempty"`
     Mac string `json:"mac"`
@@ -24,8 +30,8 @@ type net_interface struct {
 }
 
 type interfaces struct {
-    Private []net_interface `json:"private"`
-    Public []net_interface `json:"public"`
+    Private []private_interface `json:"private"`
+    Public []public_interface `json:"public"`
 }
 
 type floating_ip struct {
